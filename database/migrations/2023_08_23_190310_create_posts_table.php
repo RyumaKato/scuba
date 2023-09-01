@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('spot', 50);
             $table->foreignId('entry_id')->constrained()->onDelete('cascade');
             $table->foreignId('level_id')->constrained()->onDelete('cascade');
-            $table->foreignId('depth_id')->constrained()->onDelete('cascade');
+            $table->Integer('depth')->nullable();
             $table->foreignId('month_id')->constrained()->onDelete('cascade');
             $table->string('shop', 50)->nullable();
             $table->string('comment', 4000)->nullable();

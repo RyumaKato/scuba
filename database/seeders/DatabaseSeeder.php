@@ -18,7 +18,6 @@ class DatabaseSeeder extends Seeder
                 AreaSeeder::class,
                 EntrySeeder::class,
                 LevelSeeder::class,
-                DepthSeeder::class,
                 MonthSeeder::class,
                 EvaluationSeeder::class,
         ]);

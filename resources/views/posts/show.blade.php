@@ -16,7 +16,7 @@
             {{ $post->level->level_name }}
         </h3>
         <h3 class="depth">
-            {{ $post->depth->depth_name }}
+            {{ $post->depth }}
         </h3>
         <h3 class="month">
             {{ $post->month->month_name }}

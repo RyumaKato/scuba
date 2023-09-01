@@ -1,3 +1,5 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+<link rel="stylesheet" href="{{ asset('css/app.css?20220115') }}">

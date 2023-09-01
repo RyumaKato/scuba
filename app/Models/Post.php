@@ -16,7 +16,7 @@ class Post extends Model
         'spot',
         'entry_id',
         'level_id',
-        'depth_id',
+        'depth',
         'month_id',
         'shop',
         'comment',
@@ -28,7 +28,7 @@ class Post extends Model
     
     public function getPaginateByLimit(int $limit_count = 5)
     {
-        return $this::with('area', 'entry', 'level' , 'depth' , 'month' , 'user')->orderBy('updated_at', 'DESC')->paginate($limit_count);
+        return $this::with('area', 'entry', 'level' , 'month' , 'user')->orderBy('updated_at', 'DESC')->paginate($limit_count);
     }
     
     public function area()
@@ -44,11 +44,6 @@ class Post extends Model
     public function level()
     {
         return $this->belongsTo(Level::class);
-    }
-    
-    public function depth()
-    {
-        return $this->belongsTo(Depth::class);
     }
     
     public function month()

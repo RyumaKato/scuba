@@ -10,7 +10,7 @@
                     <h4 class="area">{{ $post->area->area_name }}</h4>
                     <h4 class="spot">{{ $post->spot }}</h4>
                     <h4 class="level"></h4>{{ $post->level->level_name }}</h4>
-                    <h4 class="depth">{{ $post->depth->depth_name }}</h4>
+                    <h4 class="depth">{{ $post->depth }}</h4>
                     <h4 class="month">{{ $post->month->month_name }}</h4>
                     <h4 class="evaluation">{{ $post->evaluation->evaluation_name }}</h4>
                     </div><img src="{{ $post->image_url }}"></div>

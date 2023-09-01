@@ -1,5 +1,4 @@
 <x-app-layout>
-    <body>
         <h1>編集画面</h1>
         <form action="/posts/{{ $post->id }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -14,14 +13,11 @@
                 <h2>都道府県</h2>
                 <select name="post[area_id]">
                     @foreach($areas as $area)
-                        <option value="{{ $area->id }}" 
-                            @if (old('post.area') == $area->id) selected
-                            @endif
-                        >{{ $area->area_name }}</option>
+                        <option value="{{ $area->id }}" {{old('post.area_id')== $area->id  ? 'selected' : ''}}>{{ $area->area_name }}</option>
                     @endforeach
                 </select>
             </div>
-            
+            {{old('post.area_id')}}
             <div class="spot">
                 <h2>スポット</h2>
                 <input type="text" name="post[spot]" placeholder="スポット" value="{{ $post->spot }}"/>
@@ -32,10 +28,7 @@
                 <h2>エントリー</h2>
                  <select name="post[entry_id]">
                     @foreach($entries as $entry)
-                        <option value="{{ $entry->id }}"
-                            @if ($entry->entry_id ) selected
-                            @endif
-                        >{{ $entry->entry_name }}</option>
+                        <option value="{{ $entry->id }}" {{old('post.entry_id')== $entry->id  ? 'selected' : ''}}>{{ $entry->entry_name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -44,34 +37,22 @@
                 <h2>レベル</h2>
                  <select name="post[level_id]">
                     @foreach($levels as $level)
-                        <option value="{{ $level->id }}"
-                            @if ($post->level_id ) selected
-                            @endif
-                        >{{ $level->level_name }}</option>
+                        <option value="{{ $level->id }}" {{old('post.level_id')== $level->id  ? 'selected' : ''}}>{{ $level->level_name }}</option>
                     @endforeach
                 </select>
             </div>
             
             <div class="depth">
                 <h2>最大水深</h2>
-                 <select name="post[depth_id]">
-                    @foreach($depths as $depth)
-                        <option value="{{ $depth->id }}"
-                            @if ($post->depth_id ) selected
-                            @endif
-                        >{{ $depth->depth_name }}</option>
-                    @endforeach
-                </select>
+                    <input type="text" name="post[depth]" placeholder="整数で記入してください" value="{{ $post->depth }}"/>
+                    <p class="depth__error" style="color:red">{{ $errors->first('post.depth') }}</p>
             </div>
             
             <div class="month">
                 <h2>オススメシーズン</h2>
                  <select name="post[month_id]">
                     @foreach($months as $month)
-                        <option value="{{ $month->id }}"
-                            @if ($post->depth_id ) selected
-                            @endif
-                        >{{ $month->month_name }}</option>
+                        <option value="{{ $month->id }}" {{old('post.month_id')== $month->id  ? 'selected' : ''}}>{{ $month->month_name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -90,10 +71,7 @@
                 <h2>評価</h2>
                  <select name="post[evaluation_id]">
                     @foreach($evaluations as $evaluation)
-                        <option value="{{ $evaluation->id }}"
-                            @if ($post->evaluation_id ) selected
-                            @endif
-                        >{{ $evaluation->evaluation_name }}</option>
+                        <option value="{{ $evaluation->id }}" {{old('post.area_id')== $evaluation->id  ? 'selected' : ''}}>{{ $evaluation->evaluation_name }}</option>
                     @endforeach
                 </select>
             </div>

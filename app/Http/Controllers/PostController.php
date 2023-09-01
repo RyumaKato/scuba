@@ -15,9 +15,45 @@ use Cloudinary;
 
 class PostController extends Controller
 {
-    public function index(Post $post)
+    public function index(Request $request, Post $post)
     {
-        return view('posts.index')->with(['posts' => $post->getPaginateByLimit()]);
+        $keyword = $request->input('keyword');
+        $area = $request->input('area');
+        $entry = $request->input('entry');
+        $level = $request->input('level');
+        $month = $request->input('month');
+        $evaluation = $request->input('evaluation');
+        $query = Post::query();
+        
+        if(!empty($area)) {
+            $query->where('area', 'LIKE', $area);
+        }
+        if(!empty($medium)) {
+            $query->where('entry', 'LIKE', $entry);
+        }
+        if(!empty($medium)) {
+            $query->where('level', 'LIKE', $level);
+        }
+        if(!empty($medium)) {
+            $query->where('month', 'LIKE', $month);
+        }
+        if(!empty($medium)) {
+            $query->where('evaluation', 'LIKE', $evaluation);
+        }
+        if(!empty($keyword)) {
+            $query->where('point', 'LIKE', "%{$keyword}%")
+                ->orWhere('spot', 'LIKE', "%{$keyword}%")
+                ->orWhere('shop', 'LIKE', "%{$keyword}%")
+                ->orWhere('comment', 'LIKE', "%{$keyword}%");
+        
+        $posts = $query->get();
+
+        return view('posts.index', compact('posts', 'keyword'));
+        $keyword -> input('keyword');
+        }
+        else{
+        return view('posts.index')->with(['posts'=> $post->getPaginateByLimit()]);
+        }
     }
     
     public function show(Post $post)
@@ -26,14 +62,15 @@ class PostController extends Controller
  //'post'はbladeファイルで使う変数。中身は$postはid=1のPostインスタンス。
     }
     
-    public function create(Area $area, Entry $entry, Level $level, Depth $depth, Month $month, Evaluation $evaluation)
+    public function create(Area $area, Entry $entry, Level $level, Month $month, Evaluation $evaluation)
     {
         return view('posts.create')->with(['areas' => $area->get(), 
                                            'entries' => $entry->get(),
                                            'levels' => $level->get(),
-                                           'depths' => $depth->get(),
                                            'months' => $month->get(),
                                            'evaluations' => $evaluation->get()]);
+    
+      
     }
 
     public function store(PostRequest $request, Post $post)
@@ -49,13 +86,12 @@ class PostController extends Controller
         return redirect('/posts/' . $post->id);
     }
     
-    public function edit(Post $post, Area $area, Entry $entry, Level $level, Depth $depth, Month $month, Evaluation $evaluation)
+    public function edit(Post $post, Area $area, Entry $entry, Level $level, Month $month, Evaluation $evaluation)
     {
         return view('posts.edit')->with(['post' => $post,
                                          'areas' => $area->get(),
                                          'entries' => $entry->get(),
                                          'levels' => $level->get(),
-                                         'depths' => $depth->get(),
                                          'months' => $month->get(),
                                          'evaluations' => $evaluation->get()]);
     }
